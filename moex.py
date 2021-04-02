@@ -2,6 +2,7 @@ import json
 
 import requests
 
+from TradesParser import TradesParser
 from TransactionsParser import TransactionsParser
 
 API_ENDPOINT = 'https://iss.moex.com/iss/engines/stock/markets/shares/securities.json'
@@ -36,5 +37,11 @@ for market_share in market_shares:
     if market_share['SECID'] == "MOEX":
         pass
 
-parser = TransactionsParser("trades.xls")
+parser = TradesParser("trades.xls")
 parser.parse()
+trades = parser.get_data()
+
+parser = TransactionsParser("transactions.xls")
+parser.parse()
+dividends = parser.get_data()
+
